@@ -86,5 +86,15 @@ MAGIC_MATRIX = {
     "低级凝神魔法阵": {"name": "低级凝神魔法阵", "type": "focus", "boost": 0, "reduce": 0.2},
     "中级凝神魔法阵": {"name": "低级凝神魔法阵", "type": "focus", "boost": 0, "reduce": 0.3},
     "高级凝神魔法阵": {"name": "低级凝神魔法阵", "type": "focus", "boost": 0, "reduce": 0.45}
+}
 
+EXERCISES = {
+    "俯卧撑": {"base_atn": 0.03, "base_def": 0.01},
+    "拳击": {"base_atn": 0.02, "base_dex": 0.01},
+    "跑步": {"base_hp": 0.03},
+    "剑术": {"base_hp": 0.01, "base_dex": 0.02},
+    "魔法研究": {"base_int": 0.01, "base_mp": 0.02},
+    "制作研究": {"base_mp": 0.03},
+    "魔力凝聚": {"base_int": 0.02, "base_mp": 0.01},
+    "魔力爆发": {"base_int": 0.02, "base_mp": 0.01, "base_hp": 0.01}
 }
