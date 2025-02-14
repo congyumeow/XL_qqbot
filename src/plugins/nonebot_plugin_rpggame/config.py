@@ -86,4 +86,8 @@ MAGIC_MATRIX = {
     "低级凝神魔法阵": {"name": "低级凝神魔法阵", "type": "focus", "boost": 0, "reduce": 0.2},
     "中级凝神魔法阵": {"name": "低级凝神魔法阵", "type": "focus", "boost": 0, "reduce": 0.3},
     "高级凝神魔法阵": {"name": "低级凝神魔法阵", "type": "focus", "boost": 0, "reduce": 0.45}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main
