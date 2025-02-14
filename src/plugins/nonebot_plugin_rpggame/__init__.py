@@ -45,7 +45,7 @@ craft = on_command("合成", priority=5)
 equip = on_command("装备", priority=5)
 backpack = on_command("背包", priority=5)
 materials = on_command("材料", priority=5)
-battle = on_command("战斗", aliases={"attack"}, priority=5)
+battle = on_command("战斗", aliases={"battle"}, priority=5)
 magic = on_command("魔法阵", aliases={"magic"}, priority=5)
 attack = on_command("攻击", aliases={"attack"}, priority=5)
 rest = on_command("休息", priority=5)
@@ -363,6 +363,8 @@ def setup_matrix(user_id: str, args: list):
     """配置魔法阵"""
     player = get_player(user_id)
     magics = get_matrix_config(user_id)
+
+    message = ""
     if args[0] == "设置":
         if len(args) > 1:
             args = args[1:]
@@ -686,6 +688,9 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
 
     if not action:
         await show_matrix(bot, event, user_id)
+        return
+
+    if action[0] not in ["设置", "重置"]:
         return
 
     # 配置命令：魔法阵 设置 [槽位] [类型] [名称]
