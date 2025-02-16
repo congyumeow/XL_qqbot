@@ -789,7 +789,7 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
 
     result = []
     stats = {"base_hp": player["base_hp"], "base_mp": player["base_mp"],
-             "base_int": player["base_int"], "base_atn": player["base_matn"],
+             "base_int": player["base_int"], "base_atn": player["base_atn"],
              "base_spd": player["base_spd"], "base_def": player["base_def"]}
     for attr, rate in config.items():
         base_value = player[attr]
