@@ -49,6 +49,7 @@ magic = on_command("魔法阵", aliases={"magic"}, priority=5)
 attack = on_command("攻击", aliases={"attack"}, priority=5)
 rest = on_command("休息", priority=5)
 exercise = on_command("锻炼", priority=5)
+explore = on_command("探索", priority=5)
 
 
 @game_menu.handle()
@@ -376,6 +377,7 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
     await attack.finish(result_msg)
 
 
+# ========== 休息模块 ==========
 @rest.handle()
 async def _(bot: Bot, event: Event):
     user_id = event.get_user_id()
@@ -389,6 +391,7 @@ async def _(bot: Bot, event: Event):
     await rest.finish(f"{player['name']}休息了一会，生命值和魔法值已恢复。")
 
 
+# ========== 锻炼模块 ==========
 @exercise.handle()
 async def _(bot: Bot, event: Event, args: Message = CommandArg()):
     user_id = event.get_user_id()
@@ -427,3 +430,10 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
     update_player(user_id, player)
 
     await exercise.finish(message)
+
+
+# ========== 探索模块 ==========
+@explore.handle()
+async def _(bot: Bot, event: Event):
+    user_id = event.get_user_id()
+    explore.finish(explore(user_id))

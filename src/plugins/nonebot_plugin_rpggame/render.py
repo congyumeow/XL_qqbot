@@ -383,3 +383,21 @@ def attr_mapping(attr: str) -> str:
         "base_int": "魔力",
         "base_mp": "法力"
     }.get(attr, attr)
+
+
+def explore(user_id: str) -> str:
+    player = get_player(user_id)
+    message = ""
+
+    total_drops = {}
+    for i in range(0, 2):
+        material_name = random.choice(list(ITEMS.keys()))
+        total_drops[material_name] = random.randint(1, 3)
+
+    for item, count in total_drops.items():
+        player["material"][item] = player["material"].get(item, 0) + count
+
+    message += f"\n获得：{', '.join([f'{k}×{v}' for k, v in total_drops.items()])}"
+    update_player(user_id, player)
+
+    return message
