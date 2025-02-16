@@ -20,7 +20,7 @@ __plugin_meta__ = PluginMetadata(
 weather = on_command("天气", priority=5, block=True)
 
 # OpenWeatherMap API 配置
-API_KEY = "API Key"  # 替换为你的API Key
+API_KEY = "a4325c417fc252605028ba1e71bbc682"  # 替换为你的API Key
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 def chinese_to_pinyin(city_name: str) -> str:
