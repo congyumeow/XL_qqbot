@@ -1,3 +1,4 @@
+import math
 import random
 import json
 import re
@@ -49,6 +50,7 @@ battle = on_command("战斗", aliases={"battle"}, priority=5)
 magic = on_command("魔法阵", aliases={"magic"}, priority=5)
 attack = on_command("攻击", aliases={"attack"}, priority=5)
 rest = on_command("休息", priority=5)
+exercise = on_command("锻炼", priority=5)
 
 
 # --- 角色管理模块 ---
@@ -99,9 +101,7 @@ def calculate_final_stats(player):
         "ATN": player["base_atn"],
         "INT": player["base_int"],
         "DEF": player["base_def"],
-        "WIL": player["base_wil"],
         "SPD": player["base_spd"],
-        "DEX": player["base_dex"],
         "max_hp": player["base_hp"],
         "max_mp": player["base_mp"]
     }
@@ -132,11 +132,11 @@ def init_equipment(user_id: str):
             "magic_circle = %s"
             "WHERE user_id = %s",
             (
-                json.dumps({"name": "匕首", "type": "weapon", "attr": {"ATN": 2, "DEX": 4}}, ensure_ascii=False),
+                json.dumps({EQUIPMENTS["匕首"]}, ensure_ascii=False),
                 json.dumps({}),
                 json.dumps({"匕首": 1}, ensure_ascii=False),
                 json.dumps({}),
-                json.dumps({"主力槽": {"main": "", "amplify": "", "focus": "", "power": 0.1},
+                json.dumps({"主力槽": {"main": "火焰柱魔法阵", "amplify": "", "focus": "", "power": 0.1},
                             "普通槽": {"main": "", "amplify": "", "focus": "", "power": 0.05, "reduce": 0.07},
                             "辅助槽": {"main": "", "amplify": "", "focus": "", "reduce": 0.15}}, ensure_ascii=False),
                 json.dumps({"火焰柱魔法阵": 1}, ensure_ascii=False),
@@ -420,6 +420,18 @@ def setup_matrix(user_id: str, args: list):
     update_player(user_id, player)
 
     return message
+
+
+def attr_mapping(attr: str) -> str:
+    """属性名称映射"""
+    return {
+        "base_atn": "力量",
+        "base_def": "防御",
+        "base_spd": "敏捷",
+        "base_hp": "生命",
+        "base_int": "魔力",
+        "base_mp": "法力"
+    }.get(attr, attr)
 
 
 @game_menu.handle()
@@ -759,3 +771,43 @@ async def _(bot: Bot, event: Event):
     update_player(user_id, player)
 
     await rest.finish(f"{player['name']}休息了一会，生命值和魔法值已恢复。")
+
+
+@exercise.handle()
+async def _(bot: Bot, event: Event, args: Message = CommandArg()):
+    user_id = event.get_user_id()
+    player = get_player(user_id)
+    ex_type = args.extract_plain_text().strip()
+
+    if ex_type not in EXERCISES:
+        info = ""
+        for i in EXERCISES.keys():
+            info += "\n" + i + "："
+            for attr, rate in EXERCISES[i].items():
+                info += f"{attr_mapping(attr)}+{int(rate * 100)}%\t"
+        message = f"无效锻炼类型，可选：{info}"
+        await exercise.finish(message)
+
+    config = EXERCISES[ex_type]
+
+    result = []
+    stats = {"base_hp": player["base_hp"], "base_mp": player["base_mp"],
+             "base_int": player["base_int"], "base_atn": player["base_matn"],
+             "base_spd": player["base_spd"], "base_def": player["base_def"]}
+    for attr, rate in config.items():
+        base_value = player[attr]
+        gain = min(max(math.ceil(base_value * rate), 1), 50)
+        player[attr] += gain
+        stats[attr] = f"{player[attr]}(+{gain})"
+
+    for attr, rate in stats.items():
+        result.append(f"{attr_mapping(attr)}：{stats[attr]}")
+
+    final_stats = calculate_final_stats(player)
+    player["current_hp"] = final_stats["max_hp"]
+    player["current_mp"] = final_stats["max_mp"]
+    result = '\n'.join(result)
+    message = f"🏋️ {ex_type}训练完成！\n修炼后基础属性：\n{result}\n"
+    update_player(user_id, player)
+
+    await exercise.finish(message)
