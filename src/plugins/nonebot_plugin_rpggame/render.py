@@ -387,7 +387,7 @@ def attr_mapping(attr: str) -> str:
 
 def explore(user_id: str) -> str:
     player = get_player(user_id)
-    message = ""
+    message = "🏋️ 探索完成"
 
     total_drops = {}
     for i in range(0, 2):
