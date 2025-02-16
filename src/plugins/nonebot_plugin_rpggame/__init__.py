@@ -553,8 +553,8 @@ async def _(bot: Bot, event: Event):
         # craft_progress.append(f"{status} {item}：" + " | ".join(progress))
 
     msg = (
-            "📦 持有材料：\n"
-            # ("\n".join(materials_list) if materials_list else "空空如也") +
+            "📦 持有材料：\n" +
+            ("\n".join(materials_list) if materials_list else "空空如也")
             # "\n\n🔨 可合成物品：" +
             # ("\n" + "\n".join(craft_progress) if craft_progress else "\n暂无足够材料")
     )
