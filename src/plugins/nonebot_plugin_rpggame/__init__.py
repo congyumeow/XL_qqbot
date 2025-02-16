@@ -77,9 +77,7 @@ def update_player(user_id: str, data: dict):
         base_atn={data["base_atn"]},
         base_int={data["base_int"]},
         base_def={data["base_def"]},
-        base_wil={data["base_wil"]},
         base_spd={data["base_spd"]},
-        base_dex={data["base_dex"]},
         current_hp={data["current_hp"]},
         current_mp={data["current_mp"]},
         weapon='{json.dumps(data["weapon"], ensure_ascii=False)}',
@@ -132,7 +130,7 @@ def init_equipment(user_id: str):
             "magic_circle = %s"
             "WHERE user_id = %s",
             (
-                json.dumps({EQUIPMENTS["匕首"]}, ensure_ascii=False),
+                json.dumps({"name": "匕首", "type": "weapon", "attr": {"ATN": 2, "SPD": 4}}, ensure_ascii=False),
                 json.dumps({}),
                 json.dumps({"匕首": 1}, ensure_ascii=False),
                 json.dumps({}),
@@ -263,7 +261,7 @@ def start_battle(user_id, enemies, enemy_count, is_attack=False):
 
                 # 计算伤害
                 dmg = max(enemy["attack"] - final_stats["DEF"], 0)
-                if random.randint(0, 99) < final_stats["DEX"]:
+                if random.randint(0, 99) < final_stats["DEF"]:
                     dmg = 0
                 player["current_hp"] -= dmg
                 # battle_log.append(f"💢 对你造成{dmg}点伤害")
@@ -299,7 +297,7 @@ def start_battle(user_id, enemies, enemy_count, is_attack=False):
                         total_drops[item] = total_drops.get(item, 0) + count
                         continue
                     if random.random() < rate:
-                        count = random.randint(1, 3)
+                        count = 1
                         total_drops[item] = total_drops.get(item, 0) + count
 
     # 更新玩家数据
@@ -470,7 +468,7 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
     await create_role.finish(
         f"\n🎉 角色【{name}】创建成功！" +
         "\n🔧 已装备初始武器：匕首" +
-        "\n📝 输入【我的状态】查看角色信息"
+        "\n📝 输入【状态】查看角色信息"
     )
 
 
@@ -489,9 +487,8 @@ async def _(bot: Bot, event: Event):
         f"【{player['name']}】\n"
         f"❤️ HP：{player['current_hp']}/{final['max_hp']}\n"
         f"🔵 MP：{player['current_mp']}/{final['max_mp']}\n"
-        f"💪 力量：{final['ATN']} | 🧠 智力：{final['INT']}\n"
-        f"🛡️ 防御：{final['DEF']} | 💫 意志：{final['WIL']}\n"
-        f"⚡ 速度：{final['SPD']} | 👐 敏捷：{final['DEX']}\n"
+        f"💪 力量：{final['ATN']} | 🧠 魔力：{final['INT']}\n"
+        f"🛡️ 防御：{final['DEF']} | 👐 敏捷：{final['SPD']}\n"
         f"🗡️ 武器：{player['weapon'].get('name', '无')}\n"
         f"🛡️ 防具：{player['armor'].get('name', '无') if isinstance(player['armor'], dict) else '无'}\n"
         f"💰 金币：{player['gold']}"

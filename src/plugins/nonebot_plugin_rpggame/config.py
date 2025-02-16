@@ -20,7 +20,7 @@ ENEMIES = {
 }
 
 EQUIPMENTS = {
-    "匕首": {"name": "匕首", "type": "weapon", "attr": {"ATN": 2, "DEX": 4}},
+    "匕首": {"name": "匕首", "type": "weapon", "attr": {"ATN": 2, "SPD": 4}},
     "精灵枪贝尔克里斯": {"name": "精灵枪贝尔克里斯", "type": "weapon", "attr": {"ATN": 10, "INT": 10, "SPD": 5}},
     "布衣": {"name": "布衣", "type": "armor", "attr": {"DEF": 2, "SPD": 1}}
 }
@@ -90,9 +90,9 @@ MAGIC_MATRIX = {
 
 EXERCISES = {
     "俯卧撑": {"base_atn": 0.03, "base_def": 0.01},
-    "拳击": {"base_atn": 0.02, "base_dex": 0.01},
+    "拳击": {"base_atn": 0.02, "base_def": 0.01},
     "跑步": {"base_hp": 0.03},
-    "剑术": {"base_hp": 0.01, "base_dex": 0.02},
+    "剑术": {"base_hp": 0.01, "base_def": 0.02},
     "魔法研究": {"base_int": 0.01, "base_mp": 0.02},
     "制作研究": {"base_mp": 0.03},
     "魔力凝聚": {"base_int": 0.02, "base_mp": 0.01},
