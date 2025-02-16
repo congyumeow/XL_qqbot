@@ -539,24 +539,24 @@ async def _(bot: Bot, event: Event):
         materials_list.append(f"· {mat_name} ×{quantity}")
 
     # 计算合成进度
-    craft_progress = []
-    for item, recipe in CRAFT_RECIPES.items():
-        can_craft = True
-        progress = []
-        for mat, need in recipe.items():
-            has = player["material"].get(mat, 0)
-            progress.append(f"{mat}：{has}/{need}")
-            if has < need:
-                can_craft = False
+    # craft_progress = []
+    # for item, recipe in CRAFT_RECIPES.items():
+    #     can_craft = True
+    #     progress = []
+    #     for mat, need in recipe.items():
+    #         has = player["material"].get(mat, 0)
+    #         progress.append(f"{mat}：{has}/{need}")
+    #         if has < need:
+    #             can_craft = False
 
-        status = "✅" if can_craft else "❌"
-        craft_progress.append(f"{status} {item}：" + " | ".join(progress))
+        # status = "✅" if can_craft else "❌"
+        # craft_progress.append(f"{status} {item}：" + " | ".join(progress))
 
     msg = (
-            "📦 持有材料：\n" +
-            ("\n".join(materials_list) if materials_list else "空空如也") +
-            "\n\n🔨 可合成物品：" +
-            ("\n" + "\n".join(craft_progress) if craft_progress else "\n暂无足够材料")
+            "📦 持有材料：\n"
+            # ("\n".join(materials_list) if materials_list else "空空如也") +
+            # "\n\n🔨 可合成物品：" +
+            # ("\n" + "\n".join(craft_progress) if craft_progress else "\n暂无足够材料")
     )
 
     await materials.finish(msg)
