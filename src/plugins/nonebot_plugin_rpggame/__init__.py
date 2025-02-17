@@ -436,4 +436,4 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
 @explore.handle()
 async def _(bot: Bot, event: Event):
     user_id = event.get_user_id()
-    explore.finish(explore_rusult(user_id))
+    await explore.finish(explore_rusult(user_id))
