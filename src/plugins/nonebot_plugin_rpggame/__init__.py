@@ -239,13 +239,13 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
 async def _(bot: Bot, event: Event, args: Message = CommandArg()):
     user_id = event.get_user_id()
     player = get_player(user_id)
-    item_type = args.extract_plain_text().strip()
+    item_type = args.extract_plain_text().strip().split()
 
     if not item_type or item_type[0] not in CRAFT_RECIPES:
         types = ', '.join(CRAFT_RECIPES.keys())
         await craft.finish(f"可合成类型：\n{types}")
 
-    item_type, item_name = item_type.split() if len(item_type.split()) == 2 else (item_type, None)
+    item_type, item_name = item_type if len(item_type) == 2 else (item_type, None)
     if item_name is None:
         # 显示合成列表
         recipes = "\n".join(
