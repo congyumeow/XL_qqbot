@@ -24,6 +24,8 @@ __plugin_meta__ = PluginMetadata(
         "魔法阵 <设置>\<重置> - 打开魔法阵菜单\n"
         "攻击 <目标> - 攻击目标\n"
         "休息 - 恢复状态\n"
+        "锻炼 - 属性成长\n"
+        "探索 - 非掉落材料获取\n"
     ),
     extra={
         "author": "congyumeow <l72221112@gmail.com>",
@@ -237,13 +239,18 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
 async def _(bot: Bot, event: Event, args: Message = CommandArg()):
     user_id = event.get_user_id()
     player = get_player(user_id)
-    item_name = args.extract_plain_text().strip()
+    item_type = args.extract_plain_text().strip()
 
-    if not item_name:
+    if not item_type or item_type[0] not in CRAFT_RECIPES:
+        types = ', '.join(CRAFT_RECIPES.keys())
+        await craft.finish(f"可合成类型：\n{types}")
+
+    item_type, item_name = item_type.split() if len(item_type.split()) == 2 else (item_type, None)
+    if item_name is None:
         # 显示合成列表
         recipes = "\n".join(
             f"{name}: {', '.join(f'{k}×{v}' for k, v in mats.items())}"
-            for name, mats in CRAFT_RECIPES.items()
+            for name, mats in CRAFT_RECIPES[item_type].items()
         )
         await craft.finish(f"可合成物品：\n{recipes}")
 
@@ -251,7 +258,7 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
         await craft.finish("没有这个合成配方")
 
     # 材料检查
-    required = CRAFT_RECIPES[item_name]
+    required = CRAFT_RECIPES[item_type][item_name]
     missing = []
     for mat, count in required.items():
         if player["material"].get(mat, 0) < count:
