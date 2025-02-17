@@ -1,8 +1,8 @@
 import random
 import json
 
-from OPMysql import OPMysql
-from config import *
+from .OPMysql import OPMysql
+from .config import *
 
 db = OPMysql()
 
