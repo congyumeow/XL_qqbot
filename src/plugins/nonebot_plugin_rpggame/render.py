@@ -1,8 +1,8 @@
 import random
-
-from .OPMysql import OPMysql
-from .config import *
 import json
+
+from OPMysql import OPMysql
+from config import *
 
 db = OPMysql()
 
@@ -385,7 +385,7 @@ def attr_mapping(attr: str) -> str:
     }.get(attr, attr)
 
 
-def explore(user_id: str) -> str:
+def explore_rusult(user_id: str) -> str:
     player = get_player(user_id)
     message = "🏋️ 探索完成"
 
