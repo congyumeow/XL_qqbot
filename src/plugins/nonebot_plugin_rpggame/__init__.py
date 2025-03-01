@@ -52,6 +52,7 @@ attack = on_command("攻击", aliases={"attack"}, priority=5)
 rest = on_command("休息", priority=5)
 exercise = on_command("锻炼", priority=5)
 explore = on_command("探索", priority=5)
+use_item = on_command("使用", priority=5)
 
 
 @game_menu.handle()
@@ -250,11 +251,11 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
         # 显示合成列表
         recipes = "\n".join(
             f"{name}: {', '.join(f'{k}×{v}' for k, v in mats.items())}"
-            for name, mats in CRAFT_RECIPES[item_type].items()
+            for name, mats in CRAFT_RECIPES[item_type[0]].items()
         )
         await craft.finish(f"可合成物品：\n{recipes}")
 
-    if item_name not in CRAFT_RECIPES:
+    if item_name not in CRAFT_RECIPES[item_type]:
         await craft.finish("没有这个合成配方")
 
     # 材料检查
@@ -444,3 +445,51 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
 async def _(bot: Bot, event: Event):
     user_id = event.get_user_id()
     await explore.finish(explore_rusult(user_id))
+
+
+@use_item.handle()
+async def _(bot: Bot, event: Event, args: Message = CommandArg()):
+    user_id = event.get_user_id()
+    item_name = args.extract_plain_text().strip()
+
+    if item_name not in CONSUMABLES:
+        await use_item.finish(f"没有【{item_name}】这种道具，可选物品：\n{', '.join(CONSUMABLES.keys())}")
+
+    player = get_player(user_id)
+    if item_name not in player["backpack"]:
+        await use_item.finish(f"背包中没有{item_name}")
+
+    result = []
+    stats = {"base_hp": player["base_hp"], "base_mp": player["base_mp"],
+             "base_int": player["base_int"], "base_atn": player["base_atn"],
+             "base_spd": player["base_spd"], "base_def": player["base_def"]}
+    for attr, rate in CONSUMABLES[item_name].items():
+        if attr == "all":
+            base_value = player[attr]
+            if rate < 1:
+                stats["base_hp"] += max(math.ceil(base_value * rate), 1)
+                stats["base_mp"] += max(math.ceil(base_value * rate), 1)
+                stats["base_atn"] += max(math.ceil(base_value * rate), 1)
+                stats["base_int"] += max(math.ceil(base_value * rate), 1)
+                stats["base_def"] += max(math.ceil(base_value * rate), 1)
+                stats["base_spd"] += max(math.ceil(base_value * rate), 1)
+            else:
+
+                player["base_hp"] += rate
+                player["base_mp"] += rate
+                player["base_atn"] += rate
+                player["base_int"] += rate
+                player["base_def"] += rate
+                player["base_spd"] += rate
+        else:
+            base_value = player[attr]
+            if rate < 1:
+                gain = min(max(math.ceil(base_value * rate), 1), 50)
+                player[attr] += gain
+                stats[attr] = f"{player[attr]}(+{gain})"
+            else:
+                player[attr] += base_value
+                stats[attr] = f"{player[attr]}(+{base_value})"
+
+    update_player(user_id, player)
+    message = f"{player['name']}使用了{item_name}，属性已恢复。"
