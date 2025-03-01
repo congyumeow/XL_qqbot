@@ -110,5 +110,6 @@ EXERCISES = {
 }
 
 CONSUMABLES = {
-    "闪耀水晶": {"all": 0.2}
+    "闪耀水晶": {"all": 0.2},
+    "电子针": {"base_spd": 7}
 }
