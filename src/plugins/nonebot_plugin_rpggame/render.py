@@ -339,7 +339,7 @@ def setup_matrix(user_id: str, args: list):
 
         # 更新数据库
         if part_type == "辅助":
-            if magics[slot] != "":
+            if magics[slot]["main"] == "":
                 message = "请先设置主力魔法阵"
                 return message
         part_type = MAGIC_MATRIX[name]["type"]
