@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from nonebot import on_keyword, on_fullmatch, on_regex, require
+from nonebot import on_command, on_fullmatch, on_regex, require
 from nonebot.adapters.qq import Bot, MessageEvent, Message, MessageSegment
 from nonebot.log import logger
 from nonebot.matcher import Matcher
@@ -37,34 +37,34 @@ __plugin_meta__ = PluginMetadata(
     },
 )
 
-general_divine = on_keyword({"今日运势", "抽签", "运势"}, priority=5)
-change_theme = on_regex(
-    r"^设置(.*?)签$",
-    permission=SUPERUSER,
-    priority=8,
-    block=True,
-)
-reset_themes = on_regex(
-    "^重置(抽签)?主题$",
-    permission=SUPERUSER,
-    priority=8,
-    block=True,
-)
-themes_list = on_fullmatch("主题列表", priority=8, block=True)
-show_themes = on_regex("^查看(抽签)?主题$", priority=8, block=True)
+general_divine = on_command("今日运势", priority=5, block=True)
+# change_theme = on_regex(
+#     r"^设置(.*?)签$",
+#     permission=SUPERUSER,
+#     priority=8,
+#     block=True,
+# )
+# reset_themes = on_regex(
+#     "^重置(抽签)?主题$",
+#     permission=SUPERUSER,
+#     priority=8,
+#     block=True,
+# )
+# themes_list = on_fullmatch("主题列表", priority=8, block=True)
+# show_themes = on_regex("^查看(抽签)?主题$", priority=8, block=True)
 
 
-@show_themes.handle()
-async def _(event: MessageEvent):
-    gid: str = str(929148869)
-    theme: str = fortune_manager.get_group_theme(gid)
-    await show_themes.finish(f"当前群抽签主题：{FortuneThemesDict[theme][0]}")
-
-
-@themes_list.handle()
-async def _(event: MessageEvent):
-    msg: str = FortuneManager.get_available_themes()
-    await themes_list.finish(msg)
+# @show_themes.handle()
+# async def _(event: MessageEvent):
+#     gid: str = str(929148869)
+#     theme: str = fortune_manager.get_group_theme(gid)
+#     await show_themes.finish(f"当前群抽签主题：{FortuneThemesDict[theme][0]}")
+#
+#
+# @themes_list.handle()
+# async def _(event: MessageEvent):
+#     msg: str = FortuneManager.get_available_themes()
+#     await themes_list.finish(msg)
 
 
 @general_divine.handle()
@@ -92,13 +92,13 @@ async def get_user_arg(matcher: Matcher, args: Annotated[str, RegexStr()]) -> st
     return arg
 
 
-@reset_themes.handle()
-async def _(event: MessageEvent):
-    gid: str = str(929148869)
-    if not fortune_manager.divination_setting("random", gid):
-        await reset_themes.finish("重置群抽签主题失败！")
-
-    await reset_themes.finish("已重置当前群抽签主题为随机~")
+# @reset_themes.handle()
+# async def _(event: MessageEvent):
+#     gid: str = str(929148869)
+#     if not fortune_manager.divination_setting("random", gid):
+#         await reset_themes.finish("重置群抽签主题失败！")
+#
+#     await reset_themes.finish("已重置当前群抽签主题为随机~")
 
 
 # 清空昨日生成的图片
