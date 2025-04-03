@@ -6,7 +6,7 @@ from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from nonebot.typing import T_State
 
-from .data_source import check_info, insert_user_info, query_user_info, get_data, buquan_gachaLogss
+from .data_source import check_info, insert_user_info, query_user_info, get_data, buquan_gachaLogss, updata_user_info
 from .render import draw
 
 __plugin_meta__ = PluginMetadata(
@@ -48,7 +48,7 @@ async def _(state: T_State, event: Event):
     qq = event.get_user_id()
     if state["if_cover"] == "是":
         user_info = state["user_info"]
-        insert_user_info(qq, user_info["uid"], user_info["record_id"])
+        updata_user_info(qq, record_id=user_info["record_id"])
         await wwgacha_bind.finish("覆盖成功，使用指令\"抽卡记录\"查看抽卡记录分析")
     else:
         await wwgacha_bind.finish("取消绑定")
