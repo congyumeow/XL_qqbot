@@ -50,11 +50,11 @@ def query_user_info(qq):
         return user_info
 
 
-def updata_user_info(qq, gachaFile, record_id: str = ""):
+def updata_user_info(qq, gacha_file: str = "", record_id: str = ""):
     if record_id == "":
-        db.update({"gachaFile": gachaFile}, user.qq == qq)
+        db.update({"gachaFile": gacha_file}, user.qq == qq)
     else:
-        db.update({"record_id": record_id, "gachaFile": gachaFile}, user.qq == qq)
+        db.update({"record_id": record_id, "gachaFile": gacha_file}, user.qq == qq)
 
 
 # 数值处理
