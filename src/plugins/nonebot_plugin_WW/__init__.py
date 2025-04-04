@@ -37,8 +37,7 @@ async def _(bot: Bot, event: Event, state: T_State, args: Message = CommandArg()
             insert_user_info(qq, uid, record_id)
             await wwgacha_bind.finish("绑定成功，使用指令\"抽卡记录\"查看抽卡记录分析")
         else:
-            state["if_cover"] = "是"
-            state["user_info"] = user_info
+            state["record_id"] = record_id
     else:
         await wwgacha_bind.finish("绑定失败,用户信息查询失败，请验证后重新绑定")
 
@@ -46,9 +45,9 @@ async def _(bot: Bot, event: Event, state: T_State, args: Message = CommandArg()
 @wwgacha_bind.got("if_cover", prompt="已设置过抽卡信息，输入\"是\"覆盖已有信息，输入其他内容取消")
 async def _(state: T_State, event: Event):
     qq = event.get_user_id()
-    if state["if_cover"] == "是":
-        user_info = state["user_info"]
-        updata_user_info(qq, record_id=user_info["record_id"])
+    answer = state["if_cover"].extract_plain_text().strip()
+    if answer == "是":
+        updata_user_info(qq, record_id=state["record_id"])
         await wwgacha_bind.finish("覆盖成功，使用指令\"抽卡记录\"查看抽卡记录分析")
     else:
         await wwgacha_bind.finish("取消绑定")
