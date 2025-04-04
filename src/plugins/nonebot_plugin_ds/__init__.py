@@ -33,7 +33,7 @@ def get_ds_response(user_msg: str):
         messages=[
             {
                 "role": "system",
-                "content": SETTING
+                "content": f"{SETTING},根据设定使用中文回答"
             },
             {
                 "role": "user",
