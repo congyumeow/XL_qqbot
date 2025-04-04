@@ -1,5 +1,7 @@
 import json
 import os.path
+from pathlib import Path
+
 import requests
 from tinydb import TinyDB, Query
 
@@ -245,9 +247,10 @@ def render_gacha_data(uid, gacha_log):
                     data["gechara_display"] = "block"
                     for i in five_log:
                         if i["name"] != "default":
-                            with open("/resource/data.json", "r", encoding="utf-8") as f:
+                            resourceDir: Path = Path(__file__).parent / "resource"
+                            with open(resourceDir / "data.json", "r", encoding="utf-8") as f:
                                 data_json = json.load(f)
-                        data["gechara"] = data_json[i["name"]]
+                            data["gechara"] = f"{data_json['character'][i['name']]}.png"
         for i in five_log:
             if i["name"] != "default":
                 result.append(i)
