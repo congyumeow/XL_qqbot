@@ -1,7 +1,7 @@
 import nonebot
 from openai import OpenAI
 from nonebot import on_message
-from nonebot.adapters.qq import Event, MessageEvent
+from nonebot.adapters.qq import MessageEvent
 from nonebot.rule import Rule
 from nonebot.plugin import PluginMetadata
 
@@ -33,7 +33,7 @@ def get_ds_response(user_msg: str):
         messages=[
             {
                 "role": "system",
-                "content": f"你是{settings}，用口语化中文回答。"
+                "content": SETTING
             },
             {
                 "role": "user",
