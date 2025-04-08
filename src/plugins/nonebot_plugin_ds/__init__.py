@@ -1,5 +1,5 @@
 import nonebot
-from openai import OpenAI
+from openai import AsyncOpenAI
 from nonebot import on_message
 from nonebot.adapters.qq import MessageEvent
 from nonebot.rule import Rule
@@ -25,10 +25,11 @@ COMMAND_LIST = [
     cmd for cmd in nonebot.get_driver().config.command_start
 ]
 
-def get_ds_response(user_msg: str):
-    client = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_API_URL)
 
-    completion = client.chat.completions.create(
+async def get_ds_response(user_msg: str):
+    client = AsyncOpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_API_URL)
+
+    completion = await client.chat.completions.create(
         model="deepseek-chat",
         messages=[
             {
@@ -62,5 +63,5 @@ ds_chat = on_message(
 @ds_chat.handle()
 async def _(event: MessageEvent):
     user_msg = event.get_plaintext().strip()
-    response = get_ds_response(user_msg)
+    response = await get_ds_response(user_msg)
     await ds_chat.send(response)
