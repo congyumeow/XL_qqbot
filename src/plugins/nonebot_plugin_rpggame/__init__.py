@@ -69,6 +69,7 @@ async def _(bot: Bot, event: Event):
     魔法阵 [设置]\[重置] - 打开魔法阵菜单
     攻击 [目标] - 攻击目标
     休息 - 恢复状态
+    锻炼 - 提升属性
     探索 - 非掉落素材获取
     使用 [物品名] - 使用消耗品"""
     await game_menu.finish(msg)
