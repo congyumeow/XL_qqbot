@@ -16,6 +16,7 @@ __plugin_meta__ = PluginMetadata(
 menu = on_command("菜单", priority=5)
 
 groups = ["A1BA2AEAA86D1838B17CBB4B4293F008", "10AC00F9354D817EDEA7CA3F1A4EE980"]
+ak = "sk-dad9b732cf86456d903d311151fc4b49"
 
 
 def group_limit(group_id: str):
@@ -31,10 +32,9 @@ def get_group_id(event: Event):
 
 @menu.handle()
 async def _(bot: Bot, event: Event):
-    str = "命令菜单：\n1.菜单：查看命令\n2.今日运势(抽签、运势)：抽签\n3.塔罗牌：塔罗牌占卜\n4.天气：查看天气(例：天气 北京)"
+    msg = "命令菜单：\n1.菜单：查看命令\n2.今日运势(抽签、运势)：抽签\n3.塔罗牌：塔罗牌占卜\n4.天气：查看天气(例：天气 北京)\n5.游戏菜单：查看游戏相关指令"
     await bot.send(
         event=event,
-        message=str,
+        message=msg,
         at_sender=True
     )
-    # sk-dad9b732cf86456d903d311151fc4b49 # sirin_api
