@@ -69,6 +69,20 @@ def num_check(num: int|float):
     return num
 
 
+def eu_af_level(data: dict):
+    if data["avg"] <= 20:
+        data["level"] = "千里挑一至尊欧皇"
+    elif 20 < data["avg"] <= 40:
+        data["level"] = "欧气满满大欧皇"
+    elif 40 < data["avg"] <= 60:
+        data["level"] = "平平无奇普通人"
+    elif 60 < data["avg"] <= 80:
+        data["level"] = "欧气不足小非酋"
+    elif 80 < data["avg"] <= 160:
+        data["level"] = "千里挑一大非酋"
+    return data
+
+
 # 请求头参数设置
 def get_request_data(uid, record_id, cardPoolId, cardPoolType):
     return {
@@ -381,6 +395,7 @@ def get_data(qq):
             merge_log = merge_gacha_data(old_Log, gacha_log)
 
             data = render_gacha_data(uid, merge_log)
+            data = eu_af_level(data)
             save_gacha_data(qq, data, merge_log, record_id)
             result["msg"] = "success"
             result["data"] = data
