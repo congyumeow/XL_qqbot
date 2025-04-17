@@ -380,6 +380,7 @@ def get_data(qq):
         if t:
             gacha_log = get_gacha_data(uid, record_id)
             data = render_gacha_data(uid, gacha_log)
+            data = eu_af_level(data)
             save_gacha_data(qq, data, gacha_log, record_id)
             result["msg"] = "success"
             result["data"] = data
