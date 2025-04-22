@@ -84,7 +84,7 @@ def draw_icons_title(draw, tatal_height, title, tatal, avg, count, is_chara: boo
     draw.text((365 - (tw + tw1) / 2, tatal_height + 20), f"{avg}", font=font(30), fill="#FFCC65")
     draw.text((365 + (tw + tw1) / 2 - tw1, tatal_height + 20 + th - th1), "抽", font=font(18), fill="#FFCC65")
     if is_chara:
-        tw, th = font(30).getsize("每UP角色")
+        tw, th = font(18).getsize("每UP角色")
         draw.text((365 - tw / 2, tatal_height + 50 + 5), "每UP角色", font=font(18), fill="#EEEEEE")
     else:
         tw, th = font(18).getsize("每金花费")
