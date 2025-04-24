@@ -1,9 +1,9 @@
 import json
 import os.path
 import re
+import time
 
 import requests
-from time import time
 from datetime import datetime
 from tinydb import TinyDB, Query
 
@@ -171,6 +171,7 @@ def get_gacha_data(authkey):
         while True:
             url = re.sub(r'gacha_type=(.*?)&', r'gacha_type={}&'.format(gachaType), url)
             url = re.sub(r'end_id=(.*?)\d+', "end_id={}".format(end_id), url)
+            time.sleep(0.2)
             response = requests.get(url, headers=heards)
             body = response.text
             body = json.loads(body)
@@ -196,7 +197,7 @@ def get_gacha_data(authkey):
                     uid = i["uid"]
                     res.append(rex)
                 gachaData["uid"] = uid
-                gachaData["time"] = int(time())
+                gachaData["time"] = int(time.time())
                 gachaData["url"] = url
                 gachaData["gachaLogs"][gachaType] = res
             if len(data) == 0 or len(data) < 20:
