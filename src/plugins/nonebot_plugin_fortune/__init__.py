@@ -2,6 +2,7 @@ from typing import Annotated
 
 from nonebot import on_command, on_fullmatch, on_regex, require
 from nonebot.adapters.qq import Bot, MessageEvent, Message, MessageSegment
+from nonebot.adapters.qq.models import MessageMarkdown, MessageMarkdownParams, MessageKeyboard
 from nonebot.log import logger
 from nonebot.matcher import Matcher
 from nonebot.params import CommandArg, Depends, RegexStr
@@ -37,7 +38,7 @@ __plugin_meta__ = PluginMetadata(
     },
 )
 
-general_divine = on_command("今日运势", priority=5, block=True)
+general_divine = on_command("运势", priority=5, block=True)
 # change_theme = on_regex(
 #     r"^设置(.*?)签$",
 #     permission=SUPERUSER,
@@ -75,13 +76,25 @@ async def _(bot: Bot, event: MessageEvent):
     if image_file is None:
         await general_divine.finish("今日运势生成出错……")
 
+    mk = MessageMarkdown() # DAU不足，待用
+    mk.custom_template_id = "1745393696"
+
+    kb = MessageKeyboard(id="102679417_1745398468")
+
+    img_segment = MessageSegment.file_image(image_file)
+
     if not is_first:
         msg = "你今天抽过签了，再给你看一次哦🤗\n" + MessageSegment.file_image(image_file)
+        # mk.params = [
+        #     MessageMarkdownParams(key="text", values=["你今天抽过签了，再给你看一次哦🤗"]),
+        #     MessageMarkdownParams(key="imgurl", values=[str(image_file)])
+        # ]
     else:
         logger.info(f"User {uid} 占卜了今日运势")
         msg = "✨今日运势✨" + MessageSegment.file_image(image_file)
 
-    await general_divine.finish(msg)
+    await bot.send(event=event, message=msg, at_sender=True)
+    await general_divine.finish(MessageSegment.keyboard(kb))
 
 
 async def get_user_arg(matcher: Matcher, args: Annotated[str, RegexStr()]) -> str:

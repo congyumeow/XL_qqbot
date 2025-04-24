@@ -12,17 +12,17 @@ from .render import draw
 __plugin_meta__ = PluginMetadata(
     name="鸣潮抽卡分析",
     description="鸣潮抽卡记录分析",
-    usage="试用指令\"/抽卡记录帮助\"查看帮助",
+    usage="使用指令\"/抽卡记录帮助\"查看帮助",
     extra={
         "author": "congyumeow <l72221112@gmail.com>",
-        "version": "v1.0.0"
+        "version": "v1.0.1"
     }
 )
 
 wwgacha_bind = on_command("绑定鸣潮角色", priority=5, block=True)
-wwgacha_gachalogs = on_command("抽卡记录", priority=5, block=True)
-wwgacha_gachalogs_add = on_command("补充抽卡记录", priority=5, block=True)
-wwgacha_help = on_command("抽卡记录帮助", priority=5, block=True)
+wwgacha_gachalogs = on_command("鸣潮抽卡记录", priority=5, block=True)
+wwgacha_gachalogs_add = on_command("补充鸣潮抽卡记录", priority=5, block=True)
+wwgacha_help = on_command("鸣潮抽卡记录帮助", priority=5, block=True)
 
 
 @wwgacha_bind.handle()
@@ -35,7 +35,7 @@ async def _(bot: Bot, event: Event, state: T_State, args: Message = CommandArg()
         user_info = query_user_info(qq)
         if user_info is None:
             insert_user_info(qq, uid, record_id)
-            await wwgacha_bind.finish("绑定成功，使用指令\"抽卡记录\"查看抽卡记录分析")
+            await wwgacha_bind.finish("绑定成功，使用指令\"鸣潮抽卡记录\"查看抽卡记录分析")
         else:
             state["record_id"] = record_id
     else:
@@ -48,7 +48,7 @@ async def _(state: T_State, event: Event):
     answer = state["if_cover"].extract_plain_text().strip()
     if answer == "是":
         updata_user_info(qq, record_id=state["record_id"])
-        await wwgacha_bind.finish("覆盖成功，使用指令\"抽卡记录\"查看抽卡记录分析")
+        await wwgacha_bind.finish("覆盖成功，使用指令\"鸣潮抽卡记录\"查看抽卡记录分析")
     else:
         await wwgacha_bind.finish("取消绑定")
 
@@ -75,7 +75,7 @@ async def _(bot: Bot, event: Event, args: Message = CommandArg()):
         await wwgacha_gachalogs_add.finish("请先绑定抽卡信息，使用指令\"绑定鸣潮角色\"绑定")
     args = args.extract_plain_text().strip().split(" ")
     message = """
-                正确指令为：/补充抽卡记录 参数1 参数2 参数3 参数4
+                正确指令为：/补充鸣潮抽卡记录 参数1 参数2 参数3 参数4
                 参数1：修改/添加
                 参数2：角色池/武器池/常驻角色池/常驻武器池/新手池/新手自选池/感恩角色
                 参数3：角色名(例：卡卡罗)

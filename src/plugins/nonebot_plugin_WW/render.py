@@ -119,7 +119,7 @@ def draw_icons(gachaImg, draw, info, jsons, tatal_height):
         bg = jianbian(icon.width, icon.height, icon, 7)
         gachaImg.paste(bg, (now_width, tatal_height + 10), bg)
         draw.rectangle((now_width, tatal_height + bg.height - 20,
-                        now_width + bg.width, tatal_height + bg.height + 10), fill="#FFFFFF")
+                        now_width + 69, tatal_height + bg.height + 10), fill="#FFFFFF")
         tw, th = font(18).getsize(f"{info[i]['cost']}")
         draw.text((now_width + icon.width // 2 - tw // 2, tatal_height + bg.height - 15), f"{info[i]['cost']}",
                   font=font(18), fill="#444444")
