@@ -169,8 +169,7 @@ def get_gacha_data(authkey):
         page = 1
         end_id = 0
         while True:
-            url = re.sub(r'(gacha_type=)\d+', r'\g<1>{}'.format(gachaType), url)
-            url = re.sub(r'page=(.*?)&', "page={}&".format(page), url)
+            url = re.sub(r'gacha_type=(.*?)&', r'gacha_type={}&'.format(gachaType), url)
             url = re.sub(r'end_id=(.*?)\d+', "end_id={}".format(end_id), url)
             response = requests.get(url, headers=heards)
             body = response.text
