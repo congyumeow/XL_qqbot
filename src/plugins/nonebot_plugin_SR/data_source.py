@@ -364,15 +364,18 @@ def buquan_gachaLogss(qq, args):
             length = int(args[3]) - last["cost"]
             for item in range(0, length):
                 tianchong["gacha_type"] = gachaType
+                tianchong["time"] = gachalog[len(gachalog) - 1]["time"]
                 gachalog.insert(count, tianchong)
         else:
             print("只能修改最后一个角色")
     else:
         five_append["name"] = args[2]
         five_append["gacha_type"] = gachaType
+        five_append["time"] = gachalog[len(gachalog) - 1]["time"]
         gachalog.insert(count, five_append)
         for i in range(1, int(args[3])):
             tianchong["gacha_type"] = gachaType
+            tianchong["time"] = gachalog[len(gachalog) - 1]["time"]
             gachalog.append(tianchong)
     new_data = render_gacha_data(data["gachaLogs"])
     new_data = eu_af_level(new_data)
