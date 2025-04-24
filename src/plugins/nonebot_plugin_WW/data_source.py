@@ -2,19 +2,11 @@ import json
 import os.path
 from pathlib import Path
 
-import nonebot
 import requests
 from tinydb import TinyDB, Query
 
 from .__meta__ import getMeta
 
-
-driver = nonebot.get_driver()
-@driver.on_startup
-async def check_DBFile():
-    if not os.path.exists(db_path):
-        with open(db_path, "w", encoding="utf-8") as f:
-            f.write("{}")
 db_path = os.path.join(os.path.dirname(__file__), "gachalogs/db.json")
 db = TinyDB(db_path)
 user = Query()
