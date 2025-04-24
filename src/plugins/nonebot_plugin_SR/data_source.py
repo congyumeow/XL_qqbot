@@ -2,6 +2,7 @@ import json
 import os.path
 import re
 
+import nonebot
 import requests
 from time import time
 from datetime import datetime
@@ -9,6 +10,7 @@ from tinydb import TinyDB, Query
 
 from .__meta__ import getMeta
 
+driver = nonebot.get_driver()
 db_path = os.path.join(os.path.dirname(__file__), "gachalogs/db.json")
 db = TinyDB(db_path)
 user = Query()
@@ -38,6 +40,13 @@ five_append = {
     "gacha_type": "",
     "id": ""
 }
+
+
+@driver.on_startup
+async def check_DBFile():
+    if not os.path.exists(db_path):
+        with open(db_path, "w", encoding="utf-8") as f:
+            f.write("{}")
 
 
 def insert_user_info(qq, uid, authkey):
