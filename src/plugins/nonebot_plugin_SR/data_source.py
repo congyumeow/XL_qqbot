@@ -1,6 +1,5 @@
 import json
 import os.path
-from pathlib import Path
 import re
 
 import requests
@@ -170,7 +169,7 @@ def get_gacha_data(authkey):
             url = re.sub(r'(gacha_type=)\d+', r'\g<1>{}'.format(gachaType), url)
             url = re.sub(r'page=(.*?)&', "page={}&".format(page), url)
             url = re.sub(r'end_id=(.*?)\d+', "end_id={}".format(end_id), url)
-            response = requests.get(url, heards=heards)
+            response = requests.get(url, headers=heards)
             body = response.text
             body = json.loads(body)
             data = body["data"]['list']
