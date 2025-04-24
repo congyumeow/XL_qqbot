@@ -159,6 +159,9 @@ def get_gacha_data(authkey):
             "2": [],
         }
     }
+    heards = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
     for gachaType in gachaTypeDict:
         result = []
         page = 1
@@ -167,7 +170,7 @@ def get_gacha_data(authkey):
             url = re.sub(r'(gacha_type=)\d+', r'\g<1>{}'.format(gachaType), url)
             url = re.sub(r'page=(.*?)&', "page={}&".format(page), url)
             url = re.sub(r'end_id=(.*?)\d+', "end_id={}".format(end_id), url)
-            response = requests.get(url)
+            response = requests.get(url, heards=heards)
             body = response.text
             body = json.loads(body)
             data = body["data"]['list']
