@@ -143,3 +143,5 @@ src/plugins/nonebot_plugin_fortune/resource/fortune_data.json
 src/plugins/nonebot_plugin_fortune/resource/group_rules.json
 src/plugins/nonebot_plugin_WW/gachalogs/cache-113107089.json
 src/plugins/nonebot_plugin_WW/gachalogs/db.json
+src/plugins/nonebot_plugin_SR/gachalogs/cache-104082843.json
+src/plugins/nonebot_plugin_SR/gachalogs/db.json
