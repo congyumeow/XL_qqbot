@@ -458,18 +458,3 @@ def get_data(qq):
             result["msg"] = "success"
             result["data"] = data
         return result
-
-
-if __name__ == "__main__":
-    qq = "FAFC9B34D0B135A706808DA7ACE8E628"
-    uid = "104082843"
-    url = "https://public-operation-hkrpg.mihoyo.com/common/gacha_record/api/getGachaLog?authkey_ver=1&sign_type=2&auth_appid=webview_gacha&win_mode=fullscreen&gacha_id=374b7481f4f39bcd526631139cccc1aa27f7a8f3&timestamp=1744155064&region=prod_gf_cn&default_gacha_type=11&decide_item_id_list=1208%252C1205%252C1101%252C1104%252C1102%252C1209%252C1211&lang=zh-cn&plat_type=pc&authkey=Bma8viyohyZNFhHrBqClLjWV46ZilSTa0NoelnRWSxtGNl3oJWXNQQyrcoQg5ObGu6g6bSykC3a4gy1ScI5O79tE74DY4nCHshbdkTWBRGxKQail1qH8LFKvjPdBO9LeaILtZamYb%2FuNAiTfcoULK1WilZQ8yedYuspEVkiQ20W9OvZNJb1PeRWkwBxaQlu2iYq8HLKHt5Ash%2BYCdDG0vB9npRg5IgkVYZbnl1eZPG9trowp0UFxfLnd%2BLl3hA2ivZMxurPb2Nj3DcTEVgftlZMWEklDjougcc6tV2ioQohPNJ6nrXMbDaRBU37GLI5YmUxnmL%2B%2FEXwJhMjh%2Fx5tAW35WnIpmAu8lJjTdO9zED3KxfoaNl8OCivgiZ9bE1q7368VpHddFppKHJGQhLV8mTwCltb5soW5fM%2F%2FQAbicVHipoI5Pf8lizmFk5BXRdUOwGHaDaE49v8lKd67HV6t%2B0%2FVCcALO1mhlr45344pcBwhWZQ4dMvCCJCS6MyFO6QQ3DR6xVz7v1BWgAWYDME7raMBm4CWoYVuQiuu060u3HmZImjZv1TlHWA0rRq6QfOrOR8yEmK53q6iMCq7xd2zvj1wB3ge7QD1CFdBtqW2mRAzPkCA6sN0Q9f64N4Kid5WzBCRygjBeme5VvdNvePcExo0Ec%2F4zl%2FjYCCgZJPams4%3D&game_biz=hkrpg_cn&os_system=Windows%2011%20%20%2810.0.22631%29%2064bit&device_model=System%20Product%20Name%20%28ASUS%29&page=1&size=5&gacha_type=11"
-    statu = check_info(url)
-    authkey = re.findall(r"authkey=(.*?)&game", url)[0]
-
-    # data = get_data(qq)
-    arg = ["修改", "角色池", "大黑塔", 77]
-    data = buquan_gachaLogss(qq, arg)
-
-
-    print(statu)

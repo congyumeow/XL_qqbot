@@ -97,4 +97,3 @@ async def _(bot: Bot, event: Event):
         发送 "鸣潮抽卡信息绑定 player_id 抽卡链接" 即可绑定抽卡信息，可长期使用
         例如 鸣潮抽卡信息绑定 101010101 https://public-operation-hkrpg.mihoyo.com……
     """
-
