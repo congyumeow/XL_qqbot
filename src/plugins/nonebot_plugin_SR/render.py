@@ -216,7 +216,7 @@ def draw(data):
 
     return screenshot_path
 
-if __name__ == "__main__":
-    with open("gachalogs/cache-104082843.json", "r", encoding="utf-8") as f:
-        gachalogs = json.load(f)
-    draw(gachalogs)
+# if __name__ == "__main__":
+#     with open("gachalogs/cache-104082843.json", "r", encoding="utf-8") as f:
+#         gachalogs = json.load(f)
+#     draw(gachalogs)
