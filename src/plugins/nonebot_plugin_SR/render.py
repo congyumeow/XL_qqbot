@@ -132,12 +132,7 @@ def draw_icons(gachaImg, draw, info, tatal_height):
                   font=font(18), fill="#444444")
         now_width += 75
 
-    line = len(info) / 7
-    if line < 1:
-        tatal_height = tatal_height + 125
-    else:
-        line = len(info) // 7
-        tatal_height = tatal_height + 125 * line
+    tatal_height = tatal_height + 125
 
     return tatal_height
 

@@ -116,8 +116,7 @@ def draw_icons(gachaImg, draw, info, jsons, tatal_height):
         if (i / 7).is_integer() and i != 0:
             now_width = 40
             tatal_height += 115
-        ic = jsons[info[i]["name"]]
-        icon = Image.open(resourceDir / f"{type}" / f"{ic}.png")
+        icon = Image.open(resourceDir / f"{type}" / f"{jsons[info[i]['name']]}.png")
         icon = icon.resize((70, int(icon.height * (70 / icon.width))))
         bg = jianbian(icon.width, icon.height, icon, 7)
         gachaImg.paste(bg, (now_width, tatal_height + 10), bg)
@@ -128,12 +127,7 @@ def draw_icons(gachaImg, draw, info, jsons, tatal_height):
                   font=font(18), fill="#444444")
         now_width += 75
 
-    line = len(info) / 7
-    if line < 1:
-        tatal_height = tatal_height + 125
-    else:
-        line = len(info) // 7
-        tatal_height = tatal_height + 125 * line
+    tatal_height = tatal_height + 125
 
     return tatal_height
 
