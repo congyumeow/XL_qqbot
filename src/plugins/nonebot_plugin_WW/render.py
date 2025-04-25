@@ -124,7 +124,7 @@ def draw_icons(gachaImg, draw, info, jsons, tatal_height):
         draw.text((now_width + icon.width // 2 - tw // 2, tatal_height + bg.height - 15), f"{info[i]['cost']}",
                   font=font(18), fill="#444444")
         now_width += 75
-        if now_width > 565:
+        if now_width > 560:
             now_width = 40
             tatal_height += (bg.height + 20)
 
