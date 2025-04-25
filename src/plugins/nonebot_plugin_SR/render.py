@@ -42,7 +42,9 @@ def jianbian(width, height, img, rad):
 def draw_icons_bg(draw, tatal_height, info: list):
     tatal_height += 20
     line = len(info) / 7
-    if not line.is_integer():
+    if line.is_integer():
+        line = int(line)
+    else:
         line = len(info) // 7 + 1
     draw.pieslice(((20, tatal_height), (40, tatal_height + 20)), 180, 270, fill=(0, 0, 0, 192))
     draw.pieslice(((560, tatal_height), (580, tatal_height + 20)), 270, 360, fill=(0, 0, 0, 192))
