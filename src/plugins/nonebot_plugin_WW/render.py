@@ -48,10 +48,8 @@ def jianbian(width, height, img, rad):
 def draw_icons_bg(draw, tatal_height, info: list):
     tatal_height += 20
     line = len(info) / 7
-    if line < 1:
-        line = 1
-    else:
-        line = len(info) // 7
+    if not line.is_integer():
+        line = len(info) // 7 + 1
     draw.pieslice(((20, tatal_height), (40, tatal_height + 20)), 180, 270, fill=(0, 0, 0, 192))
     draw.pieslice(((560, tatal_height), (580, tatal_height + 20)), 270, 360, fill=(0, 0, 0, 192))
     for y in range(tatal_height, tatal_height + 11):
@@ -113,6 +111,9 @@ def draw_icons(gachaImg, draw, info, jsons, tatal_height):
         info.pop(0)
     now_width = 40
     for i in range(0, len(info)):
+        if (i / 7).is_integer() and i != 0:
+            now_width = 40
+            tatal_height += 115
         ic = jsons[info[i]["name"]]
         icon = Image.open(resourceDir / f"{type}" / f"{ic}.png")
         icon = icon.resize((70, int(icon.height * (70 / icon.width))))
@@ -124,9 +125,6 @@ def draw_icons(gachaImg, draw, info, jsons, tatal_height):
         draw.text((now_width + icon.width // 2 - tw // 2, tatal_height + bg.height - 15), f"{info[i]['cost']}",
                   font=font(18), fill="#444444")
         now_width += 75
-        if now_width > 560:
-            now_width = 40
-            tatal_height += (bg.height + 20)
 
     line = len(info) / 7
     if line < 1:
@@ -237,8 +235,8 @@ def draw(data):
 
     return screenshot_path
 
-# if __name__ == "__main__":
-#     with open("./gachalogs/cache-113107089.json", "r", encoding="utf-8") as f:
-#         data = json.load(f)
-#     draw(data)
+if __name__ == "__main__":
+    with open("./gachalogs/cache-113107089.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    draw(data)
 
