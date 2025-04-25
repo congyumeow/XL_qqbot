@@ -38,7 +38,7 @@ __plugin_meta__ = PluginMetadata(
     },
 )
 
-general_divine = on_command("运势", priority=5, block=True)
+general_divine = on_command("今日运势", priority=5, block=True)
 # change_theme = on_regex(
 #     r"^设置(.*?)签$",
 #     permission=SUPERUSER,
@@ -79,7 +79,7 @@ async def _(bot: Bot, event: MessageEvent):
     mk = MessageMarkdown() # DAU不足，待用
     mk.custom_template_id = "1745393696"
 
-    kb = MessageKeyboard(id="102679417_1745398468")
+    kb = MessageKeyboard(id="102679417_1745498984")
 
     img_segment = MessageSegment.file_image(image_file)
 
