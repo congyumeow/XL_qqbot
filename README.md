@@ -8,7 +8,7 @@
 <div align=center>
 
 <a href="https://www.python.org">
-    <img src="https://img.shields.io/badge/Python-3.11-blue" alt="python" />
+    <img src="https://img.shields.io/badge/Python-3.10%20%7c%203.11-blue" alt="python" />
 </a>
 <a  href="https://nonebot.dev/">
     <img src="https://img.shields.io/badge/nontbot-v2.3.2-EA5252" alt="nonebot" />
