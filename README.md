@@ -39,7 +39,7 @@ git clone https://github.com/congyumeow/XL_qqbot.git
 cd xl_qqbot
 
 # 安装依赖
-pip install nonebot-adapter-qq,nonebot-plugin-apscheduler,PyMySQL,tinydb,openai,pillow==9.5.0,
+pip install nonebot-adapter-qq nonebot-plugin-apscheduler PyMySQL tinydb openai pillow==9.5.0
 ```
 修改机器人配置文件[.env.dev](.env.dev)中`QQ_BOTS`的`id`、`token`、`secret`属性，获取方式查看机器人[开发管理](https://q.qq.com/qqbot/#/developer/developer-setting)页面,具体详情参考[adapter-qq](https://github.com/nonebot/adapter-qq)
 ```bash
