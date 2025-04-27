@@ -30,7 +30,7 @@ async def get_ds_response(user_msg: str):
     client = AsyncOpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_API_URL)
 
     completion = await client.chat.completions.create(
-        model="deepseek-chat",
+        model="deepseek-reasoner",
         messages=[
             {
                 "role": "system",
