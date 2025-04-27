@@ -1,3 +1,5 @@
+import platform
+
 from dbutils.pooled_db import PooledDB
 import pymysql
 
@@ -5,8 +7,13 @@ import pymysql
 HOST = "127.0.0.1"
 PORT = 3306
 DBNAME = "rpggame"
-USER = "user"
-PASSWORD = "123"
+sys = platform.system()
+if sys == "Windows":
+    USER = "user"
+    PASSWORD = "123"
+else:
+    USER = "root"
+    PASSWORD = "639263"
 
 # 数据库连接编码
 DB_CHARSET = "utf8"
