@@ -99,7 +99,7 @@ async def _(bot: Bot, event: Event):
         1.进入游戏，打开唤取界面，点击唤取记录
         2.右键鸣潮图标，选择打开文件所在位置
         3.依次打开目录 Wuthering Waves Game\\Client\\Saved Logs 找到 Client.log 文件
-        4.使用文本编辑器打开，ctrl + F搜索 https://aki-gm-resources.aki-game.com/aki/gacha/index.html 找到位置
+        4.使用文本编辑器打开，ctrl + F搜索 record_id 找到位置
         5.找到链接携带的player_id和record_id参数
         6.发送 "鸣潮抽卡信息绑定 player_id record_id" 即可绑定抽卡信息，可长期使用
         例如：绑定鸣潮角色 100123456 b3545192e2d8ac6a6b0d069e6f54e83f
