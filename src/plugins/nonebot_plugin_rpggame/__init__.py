@@ -2,7 +2,8 @@ import math
 import re
 
 from nonebot import on_command
-from nonebot.adapters.qq import Bot, Event, Message
+from nonebot.adapters.qq import Bot, Event, Message, MessageSegment
+from nonebot.adapters.qq.models import MessageKeyboard
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from .render import *
@@ -72,7 +73,9 @@ async def _(bot: Bot, event: Event):
     锻炼 - 提升属性
     探索 - 非掉落素材获取
     使用 [物品名] - 使用消耗品"""
-    await game_menu.finish(msg)
+
+    kb = MessageKeyboard(id="102679417_1745740983")
+    await game_menu.finish(MessageSegment.keyboard(kb))
 
 # --- 角色创建 ---
 @create_role.handle()
